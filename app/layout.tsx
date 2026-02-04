@@ -66,7 +66,7 @@ export default function RootLayout({
                 <a href="https://github.com/davidmcgilltech" className="hover:text-rose-900">davidmcgilltech</a>
                 {' '} | McGill Technologies OKC
               </p>
-              <p className="mt-1">© 2024 HonestlyMargoRetail™. All rights reserved.</p>
+              <p className="mt-1">© 2026 HonestlyMargoRetail™. All rights reserved.</p>
             </div>
           </div>
         </footer>
