@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
+// Use Node.js runtime instead of Edge (Stripe needs it)
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: Request) {
   try {
     const stripeKey = process.env.STRIPE_SECRET_KEY
