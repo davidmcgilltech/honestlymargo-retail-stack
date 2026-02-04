@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       },
       body: new URLSearchParams({
         'mode': 'payment',
-        'success_url': `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+        'success_url': `${siteUrl}/success`,
         'cancel_url': `${siteUrl}/cart`,
         'shipping_address_collection[allowed_countries][0]': 'US',
         'shipping_address_collection[allowed_countries][1]': 'CA',
