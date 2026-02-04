@@ -68,7 +68,12 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error('Stripe error:', error)
     return NextResponse.json(
-      { error: error.message || 'Unknown error' },
+      { 
+        error: error.message || 'Unknown error',
+        type: error.type,
+        code: error.code,
+        statusCode: error.statusCode
+      },
       { status: 500 }
     )
   }
