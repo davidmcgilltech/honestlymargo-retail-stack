@@ -1,0 +1,468 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - banner [ref=e6]:
+      - generic [ref=e8]:
+        - link "Back to McGill Technologies" [ref=e9] [cursor=pointer]:
+          - /url: https://honestlymargo-retail-stack.vercel.app/cart
+          - generic [ref=e11]:
+            - img [ref=e12]
+            - generic [ref=e14]: Back
+            - generic [ref=e16]:
+              - img [ref=e18]
+              - heading "McGill Technologies" [level=1] [ref=e20]
+        - generic [ref=e23]: Test Mode
+    - generic [ref=e24]:
+      - generic [ref=e26]:
+        - heading "Pay McGill Technologies" [level=2] [ref=e27]
+        - generic [ref=e32]: $17.90
+      - generic [ref=e33]:
+        - list [ref=e34]:
+          - listitem [ref=e35]:
+            - generic [ref=e37]:
+              - generic [ref=e41]: Aromatherapy Balms
+              - generic [ref=e44]: $11.95
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: Subtotal
+            - generic [ref=e50]: $11.95
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - generic [ref=e56]: Shipping
+              - generic [ref=e58]: Standard shipping
+            - generic [ref=e60]: $5.95
+          - generic [ref=e61]:
+            - generic [ref=e62]: Total due
+            - generic [ref=e64]: $17.90
+  - generic [ref=e65]:
+    - main [ref=e66]:
+      - generic [ref=e67]:
+        - generic [ref=e71]:
+          - iframe [ref=e77]:
+            - generic [ref=f5e5]:
+              - button "Pay with Link" [ref=f5e7] [cursor=pointer]:
+                - img [ref=f5e10]
+              - iframe [ref=f5e16]:
+                - button "Amazon Pay - Use your Amazon Pay Sandbox test account" [ref=f18e3]:
+                  - img "Amazon Pay" [ref=f18e7] [cursor=pointer]
+              - iframe [ref=f5e20]:
+                - button "Pay with Klarna" [ref=f19e4]:
+                  - img [ref=f19e9] [cursor=pointer]
+          - generic [ref=e78]:
+            - separator [ref=e79]
+            - paragraph [ref=e80]: Or
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - heading "Shipping information" [level=2] [ref=e87]
+            - generic [ref=e89]:
+              - generic [ref=e91]: Email
+              - textbox "Email" [ref=e98]:
+                - /placeholder: email@example.com
+                - text: test@honestlymargo.com
+            - group "Shipping address" [ref=e100]:
+              - generic [ref=e101]:
+                - generic [ref=e103]: Shipping address
+                - group [ref=e104]:
+                  - generic [ref=e105]:
+                    - textbox "Full name" [ref=e110]: Test Customer
+                    - generic [ref=e114]:
+                      - combobox "Country or region" [ref=e115]:
+                        - option "Canada"
+                        - option "United States" [selected]
+                      - img
+                    - generic [ref=e118]:
+                      - combobox "Address" [expanded] [ref=e120]: 123 Main St
+                      - button "Clear" [ref=e122] [cursor=pointer]:
+                        - generic [ref=e124]: Clear
+                    - textbox "Address line 2" [ref=e129]
+                    - textbox "City" [ref=e134]: Austin
+                    - textbox "ZIP" [active] [ref=e139]: "78701"
+                    - generic [ref=e143]:
+                      - combobox "State" [ref=e144]:
+                        - option "Alabama"
+                        - option "Alaska"
+                        - option "American Samoa"
+                        - option "Arizona"
+                        - option "Arkansas"
+                        - option "Armed Forces (AA)"
+                        - option "Armed Forces (AE)"
+                        - option "Armed Forces (AP)"
+                        - option "California"
+                        - option "Colorado"
+                        - option "Connecticut"
+                        - option "Delaware"
+                        - option "District of Columbia"
+                        - option "Florida"
+                        - option "Georgia"
+                        - option "Guam"
+                        - option "Hawaii"
+                        - option "Idaho"
+                        - option "Illinois"
+                        - option "Indiana"
+                        - option "Iowa"
+                        - option "Kansas"
+                        - option "Kentucky"
+                        - option "Louisiana"
+                        - option "Maine"
+                        - option "Marshall Islands"
+                        - option "Maryland"
+                        - option "Massachusetts"
+                        - option "Michigan"
+                        - option "Micronesia"
+                        - option "Minnesota"
+                        - option "Mississippi"
+                        - option "Missouri"
+                        - option "Montana"
+                        - option "Nebraska"
+                        - option "Nevada"
+                        - option "New Hampshire"
+                        - option "New Jersey"
+                        - option "New Mexico"
+                        - option "New York"
+                        - option "North Carolina"
+                        - option "North Dakota"
+                        - option "Northern Mariana Islands"
+                        - option "Ohio"
+                        - option "Oklahoma"
+                        - option "Oregon"
+                        - option "Palau"
+                        - option "Pennsylvania"
+                        - option "Puerto Rico"
+                        - option "Rhode Island"
+                        - option "South Carolina"
+                        - option "South Dakota"
+                        - option "Tennessee"
+                        - option "Texas" [selected]
+                        - option "Utah"
+                        - option "Vermont"
+                        - option "Virgin Islands"
+                        - option "Virginia"
+                        - option "Washington"
+                        - option "West Virginia"
+                        - option "Wisconsin"
+                        - option "Wyoming"
+                      - img
+            - heading "Payment method" [level=2] [ref=e146]
+          - generic [ref=e147]:
+            - list [ref=e148]:
+              - listitem [ref=e153]:
+                - generic [ref=e162]:
+                  - generic [ref=e166]:
+                    - radio "Card" [ref=e167]
+                    - generic [ref=e169]: Card
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Visa"
+                      - generic:
+                        - generic:
+                          - img "MasterCard"
+                      - generic:
+                        - generic:
+                          - img "American Express"
+                      - generic:
+                        - img "Discover"
+                        - img "JCB"
+                        - img "Diners Club"
+                        - img "UnionPay"
+                  - generic:
+                    - button "Pay with card"
+              - listitem [ref=e174]:
+                - generic [ref=e183]:
+                  - generic [ref=e187]:
+                    - radio "Cash App Pay" [ref=e188]
+                    - generic [ref=e190]: Cash App Pay
+                  - generic:
+                    - button "Pay with Cash App"
+              - listitem [ref=e195]:
+                - generic [ref=e204]:
+                  - generic [ref=e208]:
+                    - radio "Crypto" [ref=e209]
+                    - generic [ref=e211]: Crypto
+                  - generic:
+                    - button "Pay with Crypto"
+              - listitem [ref=e216]:
+                - generic [ref=e225]:
+                  - generic [ref=e229]:
+                    - radio "Klarna" [ref=e230]
+                    - generic [ref=e232]: Klarna
+                  - generic:
+                    - button "Pay with Klarna"
+            - generic [ref=e241]:
+              - generic [ref=e245]:
+                - generic [ref=e246]:
+                  - checkbox "Save my information for faster checkout" [checked] [ref=e247] [cursor=pointer]
+                  - generic:
+                    - img
+                - generic [ref=e248]:
+                  - generic [ref=e251] [cursor=pointer]: Save my information for faster checkout
+                  - generic [ref=e253]: Pay securely at McGill Technologies and everywhere Link is accepted.
+              - generic [ref=e261]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img "US"
+                    - combobox "Phone number country code" [ref=e262]:
+                      - option "Afghanistan (+93)"
+                      - option "Albania (+355)"
+                      - option "Algeria (+213)"
+                      - option "Andorra (+376)"
+                      - option "Angola (+244)"
+                      - option "Anguilla (+1)"
+                      - option "Antigua & Barbuda (+1)"
+                      - option "Argentina (+54)"
+                      - option "Armenia (+374)"
+                      - option "Aruba (+297)"
+                      - option "Ascension Island (+247)"
+                      - option "Australia (+61)"
+                      - option "Austria (+43)"
+                      - option "Azerbaijan (+994)"
+                      - option "Åland Islands (+358)"
+                      - option "Bahamas (+1)"
+                      - option "Bahrain (+973)"
+                      - option "Bangladesh (+880)"
+                      - option "Barbados (+1)"
+                      - option "Belarus (+375)"
+                      - option "Belgium (+32)"
+                      - option "Belize (+501)"
+                      - option "Benin (+229)"
+                      - option "Bermuda (+1)"
+                      - option "Bhutan (+975)"
+                      - option "Bolivia (+591)"
+                      - option "Bosnia & Herzegovina (+387)"
+                      - option "Botswana (+267)"
+                      - option "Brazil (+55)"
+                      - option "British Indian Ocean Territory (+246)"
+                      - option "British Virgin Islands (+1)"
+                      - option "Brunei (+673)"
+                      - option "Bulgaria (+359)"
+                      - option "Burkina Faso (+226)"
+                      - option "Burundi (+257)"
+                      - option "Cambodia (+855)"
+                      - option "Cameroon (+237)"
+                      - option "Canada (+1)"
+                      - option "Cape Verde (+238)"
+                      - option "Caribbean Netherlands (+599)"
+                      - option "Cayman Islands (+1)"
+                      - option "Central African Republic (+236)"
+                      - option "Chad (+235)"
+                      - option "Chile (+56)"
+                      - option "China (+86)"
+                      - option "Colombia (+57)"
+                      - option "Comoros (+269)"
+                      - option "Congo - Brazzaville (+242)"
+                      - option "Congo - Kinshasa (+243)"
+                      - option "Cook Islands (+682)"
+                      - option "Costa Rica (+506)"
+                      - option "Côte d’Ivoire (+225)"
+                      - option "Croatia (+385)"
+                      - option "Curaçao (+599)"
+                      - option "Cyprus (+357)"
+                      - option "Czechia (+420)"
+                      - option "Denmark (+45)"
+                      - option "Djibouti (+253)"
+                      - option "Dominica (+1)"
+                      - option "Dominican Republic (+1)"
+                      - option "Ecuador (+593)"
+                      - option "Egypt (+20)"
+                      - option "El Salvador (+503)"
+                      - option "Equatorial Guinea (+240)"
+                      - option "Eritrea (+291)"
+                      - option "Estonia (+372)"
+                      - option "Eswatini (+268)"
+                      - option "Ethiopia (+251)"
+                      - option "Falkland Islands (+500)"
+                      - option "Faroe Islands (+298)"
+                      - option "Fiji (+679)"
+                      - option "Finland (+358)"
+                      - option "France (+33)"
+                      - option "French Guiana (+594)"
+                      - option "French Polynesia (+689)"
+                      - option "Gabon (+241)"
+                      - option "Gambia (+220)"
+                      - option "Georgia (+995)"
+                      - option "Germany (+49)"
+                      - option "Ghana (+233)"
+                      - option "Gibraltar (+350)"
+                      - option "Greece (+30)"
+                      - option "Greenland (+299)"
+                      - option "Grenada (+1)"
+                      - option "Guadeloupe (+590)"
+                      - option "Guam (+1)"
+                      - option "Guatemala (+502)"
+                      - option "Guernsey (+44)"
+                      - option "Guinea (+224)"
+                      - option "Guinea-Bissau (+245)"
+                      - option "Guyana (+592)"
+                      - option "Haiti (+509)"
+                      - option "Honduras (+504)"
+                      - option "Hong Kong SAR China (+852)"
+                      - option "Hungary (+36)"
+                      - option "Iceland (+354)"
+                      - option "India (+91)"
+                      - option "Indonesia (+62)"
+                      - option "Iraq (+964)"
+                      - option "Ireland (+353)"
+                      - option "Isle of Man (+44)"
+                      - option "Israel (+972)"
+                      - option "Italy (+39)"
+                      - option "Jamaica (+1)"
+                      - option "Japan (+81)"
+                      - option "Jersey (+44)"
+                      - option "Jordan (+962)"
+                      - option "Kazakhstan (+7)"
+                      - option "Kenya (+254)"
+                      - option "Kiribati (+686)"
+                      - option "Kosovo (+383)"
+                      - option "Kuwait (+965)"
+                      - option "Kyrgyzstan (+996)"
+                      - option "Laos (+856)"
+                      - option "Latvia (+371)"
+                      - option "Lebanon (+961)"
+                      - option "Lesotho (+266)"
+                      - option "Liberia (+231)"
+                      - option "Libya (+218)"
+                      - option "Liechtenstein (+423)"
+                      - option "Lithuania (+370)"
+                      - option "Luxembourg (+352)"
+                      - option "Macao SAR China (+853)"
+                      - option "Madagascar (+261)"
+                      - option "Malawi (+265)"
+                      - option "Malaysia (+60)"
+                      - option "Maldives (+960)"
+                      - option "Mali (+223)"
+                      - option "Malta (+356)"
+                      - option "Martinique (+596)"
+                      - option "Mauritania (+222)"
+                      - option "Mauritius (+230)"
+                      - option "Mayotte (+262)"
+                      - option "Mexico (+52)"
+                      - option "Moldova (+373)"
+                      - option "Monaco (+377)"
+                      - option "Mongolia (+976)"
+                      - option "Montenegro (+382)"
+                      - option "Montserrat (+1)"
+                      - option "Morocco (+212)"
+                      - option "Mozambique (+258)"
+                      - option "Myanmar (Burma) (+95)"
+                      - option "Namibia (+264)"
+                      - option "Nauru (+674)"
+                      - option "Nepal (+977)"
+                      - option "Netherlands (+31)"
+                      - option "New Caledonia (+687)"
+                      - option "New Zealand (+64)"
+                      - option "Nicaragua (+505)"
+                      - option "Niger (+227)"
+                      - option "Nigeria (+234)"
+                      - option "Niue (+683)"
+                      - option "North Macedonia (+389)"
+                      - option "Norway (+47)"
+                      - option "Oman (+968)"
+                      - option "Pakistan (+92)"
+                      - option "Palestinian Territories (+970)"
+                      - option "Panama (+507)"
+                      - option "Papua New Guinea (+675)"
+                      - option "Paraguay (+595)"
+                      - option "Peru (+51)"
+                      - option "Philippines (+63)"
+                      - option "Poland (+48)"
+                      - option "Portugal (+351)"
+                      - option "Puerto Rico (+1)"
+                      - option "Qatar (+974)"
+                      - option "Réunion (+262)"
+                      - option "Romania (+40)"
+                      - option "Russia (+7)"
+                      - option "Rwanda (+250)"
+                      - option "Samoa (+685)"
+                      - option "San Marino (+378)"
+                      - option "São Tomé & Príncipe (+239)"
+                      - option "Saudi Arabia (+966)"
+                      - option "Senegal (+221)"
+                      - option "Serbia (+381)"
+                      - option "Seychelles (+248)"
+                      - option "Sierra Leone (+232)"
+                      - option "Singapore (+65)"
+                      - option "Sint Maarten (+1)"
+                      - option "Slovakia (+421)"
+                      - option "Slovenia (+386)"
+                      - option "Solomon Islands (+677)"
+                      - option "Somalia (+252)"
+                      - option "South Africa (+27)"
+                      - option "South Korea (+82)"
+                      - option "South Sudan (+211)"
+                      - option "Spain (+34)"
+                      - option "Sri Lanka (+94)"
+                      - option "St. Barthélemy (+590)"
+                      - option "St. Helena (+290)"
+                      - option "St. Kitts & Nevis (+1)"
+                      - option "St. Lucia (+1)"
+                      - option "St. Martin (+590)"
+                      - option "St. Pierre & Miquelon (+508)"
+                      - option "St. Vincent & Grenadines (+1)"
+                      - option "Sudan (+249)"
+                      - option "Suriname (+597)"
+                      - option "Svalbard & Jan Mayen (+47)"
+                      - option "Sweden (+46)"
+                      - option "Switzerland (+41)"
+                      - option "Taiwan (+886)"
+                      - option "Tajikistan (+992)"
+                      - option "Tanzania (+255)"
+                      - option "Thailand (+66)"
+                      - option "Timor-Leste (+670)"
+                      - option "Togo (+228)"
+                      - option "Tokelau (+690)"
+                      - option "Tonga (+676)"
+                      - option "Trinidad & Tobago (+1)"
+                      - option "Tristan da Cunha (+290)"
+                      - option "Tunisia (+216)"
+                      - option "Turkey (+90)"
+                      - option "Turkmenistan (+993)"
+                      - option "Turks & Caicos Islands (+1)"
+                      - option "Tuvalu (+688)"
+                      - option "Uganda (+256)"
+                      - option "Ukraine (+380)"
+                      - option "United Arab Emirates (+971)"
+                      - option "United Kingdom (+44)"
+                      - option "United States (+1)" [selected]
+                      - option "Uruguay (+598)"
+                      - option "Uzbekistan (+998)"
+                      - option "Vanuatu (+678)"
+                      - option "Vatican City (+39)"
+                      - option "Venezuela (+58)"
+                      - option "Vietnam (+84)"
+                      - option "Wallis & Futuna (+681)"
+                      - option "Western Sahara (+212)"
+                      - option "Yemen (+967)"
+                      - option "Zambia (+260)"
+                      - option "Zimbabwe (+263)"
+                    - img
+                - textbox "Phone number" [ref=e264]:
+                  - /placeholder: (201) 555-0123
+          - generic [ref=e266]:
+            - button "Pay" [ref=e269] [cursor=pointer]:
+              - generic:
+                - generic [ref=e271]: Pay
+                - generic [ref=e272]: Processing
+              - img [ref=e277]
+              - img [ref=e282]
+            - generic [ref=e291]:
+              - text: By paying, you agree to Link’s
+              - link "Terms" [ref=e292] [cursor=pointer]:
+                - /url: https://link.com/terms
+              - text: and
+              - link "Privacy" [ref=e293] [cursor=pointer]:
+                - /url: https://link.com/privacy
+              - text: .
+    - contentinfo [ref=e295]:
+      - link "Powered by Stripe" [ref=e297] [cursor=pointer]:
+        - /url: https://stripe.com
+        - generic [ref=e298]:
+          - text: Powered by
+          - img "Stripe" [ref=e300]
+      - link "Terms" [ref=e303] [cursor=pointer]:
+        - /url: https://stripe.com/legal/end-users
+      - link "Privacy" [ref=e304] [cursor=pointer]:
+        - /url: https://stripe.com/privacy
+```
