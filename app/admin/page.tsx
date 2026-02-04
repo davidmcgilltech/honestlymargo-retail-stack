@@ -46,43 +46,76 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Order Management</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Order Management</h1>
       
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-sm text-gray-500">Total Revenue</p>
-          <p className="text-3xl font-bold text-green-600">${stats.totalRevenue.toFixed(2)}</p>
+      {/* Stats - responsive grid */}
+      <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-6">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <p className="text-xs sm:text-sm text-gray-600">Revenue</p>
+          <p className="text-xl sm:text-3xl font-bold text-green-600">${stats.totalRevenue.toFixed(2)}</p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-sm text-gray-500">Total Orders</p>
-          <p className="text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <p className="text-xs sm:text-sm text-gray-600">Orders</p>
+          <p className="text-xl sm:text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-sm text-gray-500">Needs Fulfillment</p>
-          <p className="text-3xl font-bold text-blue-600">{stats.pendingOrders}</p>
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <p className="text-xs sm:text-sm text-gray-600">Pending</p>
+          <p className="text-xl sm:text-3xl font-bold text-blue-600">{stats.pendingOrders}</p>
         </div>
       </div>
 
-      {/* Orders Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      {/* Mobile: Card layout */}
+      <div className="sm:hidden space-y-3">
+        {orders.length === 0 ? (
+          <div className="bg-white rounded-lg shadow p-6 text-center text-gray-600">
+            No orders yet.
+          </div>
+        ) : (
+          orders.map((order: any) => (
+            <a 
+              key={order.id}
+              href={`/admin/orders/${order.id}`}
+              className="block bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <p className="font-medium text-gray-900">{order.customer_name || 'No name'}</p>
+                  <p className="text-sm text-gray-600 truncate max-w-[200px]">{order.customer_email}</p>
+                </div>
+                <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[order.status] || 'bg-gray-100'}`}>
+                  {order.status}
+                </span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-600">
+                  {order.line_items?.length || 0} item(s) • {new Date(order.created_at).toLocaleDateString()}
+                </span>
+                <span className="font-semibold text-gray-900">${order.total?.toFixed(2)}</span>
+              </div>
+            </a>
+          ))
+        )}
+      </div>
+
+      {/* Desktop: Table layout */}
+      <div className="hidden sm:block bg-white rounded-lg shadow overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Order</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Customer</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Items</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Total</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Date</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {orders.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                <td colSpan={7} className="px-6 py-12 text-center text-gray-600">
                   No orders yet. Orders will appear here when customers complete checkout.
                 </td>
               </tr>
@@ -96,7 +129,7 @@ export default async function AdminPage() {
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">{order.customer_name || 'N/A'}</div>
-                    <div className="text-sm text-gray-500">{order.customer_email}</div>
+                    <div className="text-sm text-gray-600">{order.customer_email}</div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">
@@ -113,7 +146,7 @@ export default async function AdminPage() {
                       {order.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                     {new Date(order.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
