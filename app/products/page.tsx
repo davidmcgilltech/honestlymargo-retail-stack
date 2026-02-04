@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase'
+import { createClient, Product } from '../../lib/supabase'
 
 async function getProducts(category?: string) {
   const supabase = createClient()
@@ -19,15 +19,16 @@ async function getProducts(category?: string) {
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { category?: string }
+  searchParams: Promise<{ category?: string }>
 }) {
-  const products = await getProducts(searchParams.category)
+  const params = await searchParams
+  const products = await getProducts(params.category)
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-serif text-gray-900">
-          {searchParams.category || 'All Products'}
+          {params.category || 'All Products'}
         </h1>
         <div className="flex gap-2">
           <a href="/products" className="px-3 py-1 rounded-full text-sm border hover:bg-rose-50">
@@ -49,7 +50,7 @@ export default async function ProductsPage({
         <p className="text-gray-500 text-center py-12">No products found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
+          {products.map((product: Product) => (
             <a 
               key={product.id} 
               href={`/products/${product.slug}`}

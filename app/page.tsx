@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase'
+import { createClient, Product } from '../lib/supabase'
 
 async function getProducts() {
   const supabase = createClient()
@@ -49,7 +49,7 @@ export default async function Home() {
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
+            {products.map((product: Product) => (
               <a 
                 key={product.id} 
                 href={`/products/${product.slug}`}
