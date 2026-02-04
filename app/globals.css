@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a0a0;
+  border-radius: 4px;
+}
+
+/* Product card hover effect */
+.product-card {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.product-card:hover {
+  @apply -translate-y-1 shadow-lg;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-rose-900 text-white px-6 py-3 rounded-full font-medium 
+         hover:bg-rose-800 transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply border-2 border-rose-900 text-rose-900 px-6 py-3 rounded-full font-medium
+         hover:bg-rose-900 hover:text-white transition-colors duration-200;
+}
