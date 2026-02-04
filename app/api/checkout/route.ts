@@ -12,7 +12,10 @@ export async function POST(req: Request) {
       )
     }
 
-    const stripe = new Stripe(stripeKey)
+    const stripe = new Stripe(stripeKey, {
+      maxNetworkRetries: 3,
+      timeout: 30000,
+    })
     const { items } = await req.json()
 
     // Create line items for Stripe
