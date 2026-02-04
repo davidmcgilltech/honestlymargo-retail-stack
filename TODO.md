@@ -34,7 +34,7 @@
 - [ ] **Packing slips** - Printable packing slip from admin
 
 ### Admin
-- [ ] **Authentication** - Protect admin routes (currently public!)
+- [x] **Authentication** - Protect admin routes ✅ (Supabase Auth)
 - [ ] **Sales dashboard** - Charts, revenue over time, top products
 - [ ] **Customer list** - View all customers, order history
 - [ ] **Bulk actions** - Mark multiple orders as shipped
@@ -48,6 +48,7 @@
 
 ## Completed ✅
 
+- [x] Admin authentication (Supabase Auth)
 - [x] Product catalog page
 - [x] Stripe Checkout integration
 - [x] Webhook handler (checkout.session.completed)
