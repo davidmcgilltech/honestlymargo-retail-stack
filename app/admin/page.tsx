@@ -1,5 +1,7 @@
 import { createClient } from '../../lib/supabase'
 
+export const dynamic = 'force-dynamic'
+
 async function getOrders() {
   const supabase = createClient()
   const { data: orders } = await supabase
@@ -20,8 +22,8 @@ async function getStats() {
   
   if (!orders) return { totalRevenue: 0, totalOrders: 0, pendingOrders: 0 }
   
-  const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0)
-  const pendingOrders = orders.filter(o => o.status === 'paid' || o.status === 'processing').length
+  const totalRevenue = orders.reduce((sum: number, o: any) => sum + (o.total || 0), 0)
+  const pendingOrders = orders.filter((o: any) => o.status === 'paid' || o.status === 'processing').length
   
   return {
     totalRevenue,

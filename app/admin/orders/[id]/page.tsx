@@ -1,4 +1,6 @@
 import { createClient } from '../../../../lib/supabase'
+
+export const dynamic = 'force-dynamic'
 import { notFound } from 'next/navigation'
 import OrderActions from './OrderActions'
 
