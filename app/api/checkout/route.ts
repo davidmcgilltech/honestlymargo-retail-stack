@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-import Stripe from 'stripe'
 
-// Use Node.js runtime instead of Edge (Stripe needs it)
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
@@ -10,78 +8,61 @@ export async function POST(req: Request) {
     const stripeKey = process.env.STRIPE_SECRET_KEY
     
     if (!stripeKey) {
-      return NextResponse.json(
-        { error: 'Stripe key not configured' },
-        { status: 500 }
-      )
+      return NextResponse.json({ error: 'Stripe key not configured' }, { status: 500 })
     }
 
-    const stripe = new Stripe(stripeKey, {
-      maxNetworkRetries: 3,
-      timeout: 30000,
-    })
     const { items } = await req.json()
 
-    // Create line items for Stripe
+    // Build line items
     const lineItems = items.map((item: any) => ({
       price_data: {
         currency: 'usd',
-        product_data: {
-          name: item.name,
-        },
+        product_data: { name: item.name },
         unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
     }))
 
-    // Calculate if free shipping applies ($99+)
-    const subtotal = items.reduce((sum: number, item: any) => 
-      sum + (item.price * item.quantity), 0
-    )
+    const subtotal = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0)
     const freeShipping = subtotal >= 99
-
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://honestlymargo-retail-stack.vercel.app'
 
-    // Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/cart`,
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
+    // Use raw fetch to Stripe API
+    const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${stripeKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      shipping_options: freeShipping ? [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: 0, currency: 'usd' },
-            display_name: 'Free shipping',
-          },
-        },
-      ] : [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: 595, currency: 'usd' },
-            display_name: 'Standard shipping',
-          },
-        },
-      ],
+      body: new URLSearchParams({
+        'mode': 'payment',
+        'success_url': `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+        'cancel_url': `${siteUrl}/cart`,
+        'shipping_address_collection[allowed_countries][0]': 'US',
+        'shipping_address_collection[allowed_countries][1]': 'CA',
+        'shipping_options[0][shipping_rate_data][type]': 'fixed_amount',
+        'shipping_options[0][shipping_rate_data][fixed_amount][amount]': freeShipping ? '0' : '595',
+        'shipping_options[0][shipping_rate_data][fixed_amount][currency]': 'usd',
+        'shipping_options[0][shipping_rate_data][display_name]': freeShipping ? 'Free shipping' : 'Standard shipping',
+        ...lineItems.reduce((acc: any, item: any, i: number) => ({
+          ...acc,
+          [`line_items[${i}][price_data][currency]`]: item.price_data.currency,
+          [`line_items[${i}][price_data][product_data][name]`]: item.price_data.product_data.name,
+          [`line_items[${i}][price_data][unit_amount]`]: String(item.price_data.unit_amount),
+          [`line_items[${i}][quantity]`]: String(item.quantity),
+        }), {}),
+      }).toString(),
     })
 
-    return NextResponse.json({ sessionId: session.id, url: session.url })
+    const data = await response.json()
+
+    if (!response.ok) {
+      return NextResponse.json({ error: data.error?.message || 'Stripe error', details: data }, { status: response.status })
+    }
+
+    return NextResponse.json({ sessionId: data.id, url: data.url })
   } catch (error: any) {
-    console.error('Stripe error:', error)
-    return NextResponse.json(
-      { 
-        error: error.message || 'Unknown error',
-        type: error.type,
-        code: error.code,
-        statusCode: error.statusCode
-      },
-      { status: 500 }
-    )
+    console.error('Checkout error:', error)
+    return NextResponse.json({ error: error.message || 'Unknown error' }, { status: 500 })
   }
 }
