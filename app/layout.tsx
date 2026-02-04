@@ -61,7 +61,7 @@ export default function RootLayout({
                 </ul>
               </div>
             </div>
-            <div className="border-t mt-8 pt-8 text-center text-sm text-gray-500">
+            <div className="border-t mt-8 pt-8 text-center text-sm text-gray-600">
               <p>
                 <a href="https://github.com/davidmcgilltech" className="hover:text-rose-900">davidmcgilltech</a>
                 {' '} | McGill Technologies OKC

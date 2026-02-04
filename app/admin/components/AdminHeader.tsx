@@ -20,7 +20,7 @@ export default function AdminHeader({ email }: { email?: string }) {
           <a href="/" className="text-rose-600 hover:text-rose-700 text-sm">
             ← Back to store
           </a>
-          <span className="text-gray-300">|</span>
+          <span className="text-gray-400" aria-hidden="true">|</span>
           <h1 className="text-xl font-semibold text-gray-900">Honestly Margo Admin</h1>
         </div>
         <div className="flex items-center gap-4">

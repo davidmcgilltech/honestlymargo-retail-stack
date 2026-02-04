@@ -47,12 +47,12 @@ export default async function ProductsPage({
         </div>
       </div>
 
-      <p className="text-sm text-gray-500 mb-6">
+      <p className="text-sm text-gray-600 mb-6">
         Free shipping on orders $99+ • Test mode: use card 4242 4242 4242 4242
       </p>
 
       {products.length === 0 ? (
-        <p className="text-gray-500 text-center py-12">No products found.</p>
+        <p className="text-gray-600 text-center py-12">No products found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product: Product) => (
