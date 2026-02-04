@@ -1,10 +1,18 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
-
 export async function POST(req: Request) {
   try {
+    const stripeKey = process.env.STRIPE_SECRET_KEY
+    
+    if (!stripeKey) {
+      return NextResponse.json(
+        { error: 'Stripe key not configured' },
+        { status: 500 }
+      )
+    }
+
+    const stripe = new Stripe(stripeKey)
     const { items } = await req.json()
 
     // Create line items for Stripe
@@ -13,10 +21,8 @@ export async function POST(req: Request) {
         currency: 'usd',
         product_data: {
           name: item.name,
-          description: item.variant || undefined,
-          images: item.image ? [item.image] : undefined,
         },
-        unit_amount: Math.round(item.price * 100), // Convert to cents
+        unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
     }))
@@ -27,13 +33,15 @@ export async function POST(req: Request) {
     )
     const freeShipping = subtotal >= 99
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://honestlymargo-retail-stack.vercel.app'
+
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/order/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+      success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}/cart`,
       shipping_address_collection: {
         allowed_countries: ['US', 'CA'],
       },
@@ -43,10 +51,6 @@ export async function POST(req: Request) {
             type: 'fixed_amount',
             fixed_amount: { amount: 0, currency: 'usd' },
             display_name: 'Free shipping',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 3 },
-              maximum: { unit: 'business_day', value: 7 },
-            },
           },
         },
       ] : [
@@ -55,21 +59,6 @@ export async function POST(req: Request) {
             type: 'fixed_amount',
             fixed_amount: { amount: 595, currency: 'usd' },
             display_name: 'Standard shipping',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 3 },
-              maximum: { unit: 'business_day', value: 7 },
-            },
-          },
-        },
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: 1295, currency: 'usd' },
-            display_name: 'Express shipping',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 1 },
-              maximum: { unit: 'business_day', value: 3 },
-            },
           },
         },
       ],
@@ -79,7 +68,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error('Stripe error:', error)
     return NextResponse.json(
-      { error: error.message },
+      { error: error.message || 'Unknown error' },
       { status: 500 }
     )
   }
