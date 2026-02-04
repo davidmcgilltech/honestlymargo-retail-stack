@@ -1,132 +1,193 @@
-# HonestlyMargoRetail™
+# Honestly Margo Retail Stack
 
-> McGill's Shopify-killing beauty retail stack — **$3k/yr savings**
+E-commerce platform for Honestly Margo's handcrafted beauty products.
 
-![HonestlyMargo Demo](https://img.shields.io/badge/Demo-Live-brightgreen)
-![Next.js](https://img.shields.io/badge/Next.js-15-black)
-![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E)
-![Stripe](https://img.shields.io/badge/Stripe-Payments-635BFF)
+**Live:** https://honestlymargo-retail-stack.vercel.app
 
-## 🎯 What Is This?
+## Architecture
 
-A complete e-commerce stack that replaces Shopify for beauty/retail brands like [Honestly Margo](https://honestlymargo.com). Built with modern tech, zero monthly platform fees.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         FRONTEND                                │
+│  Next.js 16 + React + Tailwind                                 │
+│                                                                 │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐       │
+│  │   Home   │  │ Products │  │ Success  │  │  Admin   │       │
+│  │   /      │  │/products │  │/success  │  │  /admin  │       │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘       │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        API ROUTES                               │
+│                                                                 │
+│  POST /api/checkout ──────────► Stripe Checkout Session        │
+│                                 (redirects to Stripe)          │
+│                                                                 │
+│  POST /api/webhooks/stripe ◄── Stripe Webhook                  │
+│         │                      (checkout.session.completed)    │
+│         ▼                                                       │
+│  Creates order + customer in Supabase                          │
+│                                                                 │
+│  POST /api/admin/orders/update ── Update order status          │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        DATA STORES                              │
+│                                                                 │
+│  ┌─────────────────────┐      ┌─────────────────────┐         │
+│  │      Supabase       │      │       Stripe        │         │
+│  │                     │      │                     │         │
+│  │  • products         │      │  • Checkout         │         │
+│  │  • orders           │      │  • Payments         │         │
+│  │  • customers        │      │  • Webhooks         │         │
+│  └─────────────────────┘      └─────────────────────┘         │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-**Demo**: [honestlymargo-retail.vercel.app](https://honestlymargo-retail.vercel.app)
+## Current Status
 
----
+### ✅ Complete
+- [x] Product catalog (fetches from Supabase)
+- [x] Stripe Checkout integration (hosted checkout page)
+- [x] Webhook handler creates orders in Supabase
+- [x] Customer records created/updated on purchase
+- [x] Admin dashboard with order list and stats
+- [x] Order detail view
+- [x] Order status updates (paid → processing → shipped → delivered)
+- [x] Free shipping on orders $99+
 
-## 💰 Savings Calculator
+### 🚧 In Progress
+- [ ] (nothing currently)
 
-| Monthly Sales | Shopify Cost | HonestlyMargoRetail™ | **Annual Savings** |
-|--------------|--------------|----------------------|-------------------|
-| $5,000/mo | $3,984/yr | $2,100/yr | **$1,884** |
-| $10,000/mo | $6,396/yr | $4,560/yr | **$1,836** |
-| $25,000/mo | $10,788/yr | $7,200/yr | **$3,588** |
-| $50,000/mo | $18,588/yr | $14,400/yr | **$4,188** |
+### ❌ Not Started
+- [ ] Automated tests
+- [ ] Email confirmations
+- [ ] Shipping label integration
+- [ ] Inventory tracking
+- [ ] Customer order lookup
+- [ ] Real product data/images
 
-*Shopify costs include Basic plan ($39/mo) + 2.9% + $0.30 per transaction*
-*HonestlyMargoRetail uses Stripe (2.9% + $0.30) + Vercel Pro ($20/mo) + Supabase Free*
+## Data Models
 
----
+### orders
+| Column | Type | Description |
+|--------|------|-------------|
+| id | uuid | Primary key |
+| stripe_session_id | text | Stripe checkout session ID |
+| stripe_payment_intent | text | Stripe payment intent ID |
+| customer_id | uuid | FK to customers |
+| customer_email | text | |
+| customer_name | text | |
+| shipping_address | jsonb | {line1, line2, city, state, postal_code, country} |
+| subtotal | numeric | |
+| shipping | numeric | |
+| total | numeric | |
+| status | text | paid, processing, shipped, delivered, cancelled |
+| line_items | jsonb | [{description, quantity, unit_price, total}] |
+| created_at | timestamp | |
 
-## 🛒 Features
+### customers
+| Column | Type | Description |
+|--------|------|-------------|
+| id | uuid | Primary key |
+| email | text | Unique |
+| name | text | |
+| phone | text | |
+| stripe_customer_id | text | |
+| total_orders | int | |
+| total_spent | numeric | |
 
-- **Product Catalog** — Supabase-powered with variants, images, inventory
-- **Shopping Cart** — Persistent cart with localStorage + Supabase sync
-- **Stripe Checkout** — One-time payments, no subscriptions needed
-- **AI Descriptions** — Claude-generated product copy
-- **Cart Recovery** — SendGrid abandoned cart emails
-- **Mobile-First** — Responsive design, fast on any device
+### products
+| Column | Type | Description |
+|--------|------|-------------|
+| id | uuid | Primary key |
+| name | text | |
+| slug | text | URL-friendly name |
+| description | text | |
+| price | numeric | |
+| image_url | text | |
+| is_active | boolean | |
+| tags | text[] | e.g., ['best-seller'] |
 
----
+## Environment Variables
 
-## 🚀 Quick Start
+### Required for Vercel
+```
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+```
+
+⚠️ **Important:** When setting env vars via CLI, use `printf` not `echo` to avoid trailing newlines:
+```bash
+printf 'whsec_xxx' | vercel env add STRIPE_WEBHOOK_SECRET production
+```
+
+## Local Development
 
 ```bash
-# Clone
-git clone https://github.com/davidmcgilltech/honestlymargo-retail-stack.git
-cd honestlymargo-retail-stack
-
-# Install
 npm install
-
-# Set up environment
-cp .env.example .env.local
-# Add your Supabase + Stripe keys
-
-# Run
+vercel env pull .env.local  # Pull env vars from Vercel
 npm run dev
 ```
 
----
+### Testing Webhooks Locally
 
-## 🔧 Tech Stack
+```bash
+# Terminal 1: Run the app
+npm run dev
 
-| Layer | Technology | Cost |
-|-------|-----------|------|
-| Frontend | Next.js 15 + Tailwind | Free |
-| Database | Supabase (Postgres) | Free tier |
-| Payments | Stripe | 2.9% + $0.30 |
-| Hosting | Vercel | Free / $20 Pro |
-| Email | SendGrid | Free tier |
-| AI | Claude API | Pay-per-use |
+# Terminal 2: Forward Stripe events
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
 
----
-
-## 📦 Product Data
-
-Pre-seeded with Honestly Margo's catalog:
-
-- **Tinted Lip Balms** — $7.95
-- **Aromatherapy Balms** — $11.95  
-- **Hand & Body Lotion** — $16.95
-- **Goddess Body Lotion** — $22.95
-- **Goddess Hair & Body Mist** — $22.95
-- And more...
-
-Free shipping on orders $99+
-
----
-
-## 🏗️ Project Structure
-
-```
-├── app/
-│   ├── page.tsx           # Homepage
-│   ├── products/          # Product pages
-│   ├── cart/              # Cart page
-│   └── api/               # API routes (Stripe, etc.)
-├── components/
-│   ├── ui/                # Buttons, inputs, etc.
-│   ├── cart/              # Cart components
-│   └── product/           # Product cards, gallery
-├── lib/
-│   ├── supabase.ts        # Supabase client
-│   ├── stripe.ts          # Stripe helpers
-│   └── utils.ts           # Utilities
-├── supabase/
-│   └── schema.sql         # Database schema + seed data
-└── public/                # Static assets
+# Terminal 3: Trigger test events
+stripe trigger checkout.session.completed
 ```
 
----
+## Deployment
 
-## 🎨 Customization
+Deployed on Vercel. Push to main triggers auto-deploy.
 
-1. **Branding** — Update `tailwind.config.js` colors
-2. **Products** — Edit `supabase/schema.sql` seed data
-3. **Checkout** — Customize Stripe checkout in `app/api/checkout/`
-4. **Emails** — Configure SendGrid templates in `lib/email.ts`
+```bash
+vercel --prod  # Manual deploy
+```
 
----
+## Key Files
 
-## 📄 License
+```
+app/
+├── page.tsx                    # Homepage with featured products
+├── products/page.tsx           # Product catalog
+├── success/page.tsx            # Post-checkout success page
+├── admin/
+│   ├── page.tsx               # Order dashboard
+│   └── orders/[id]/
+│       ├── page.tsx           # Order detail
+│       └── OrderActions.tsx   # Status update buttons
+├── api/
+│   ├── checkout/route.ts      # Creates Stripe checkout session
+│   ├── webhooks/stripe/route.ts  # Handles Stripe webhooks
+│   └── admin/orders/update/route.ts  # Updates order status
+└── lib/
+    └── supabase.ts            # Supabase client
+```
 
-MIT — Use it, modify it, sell it.
+## Webhook Flow
 
----
+1. Customer completes Stripe Checkout
+2. Stripe sends `checkout.session.completed` to `/api/webhooks/stripe`
+3. Webhook handler:
+   - Verifies signature
+   - Fetches line items from Stripe
+   - Creates/updates customer in Supabase
+   - Creates order in Supabase
+4. Order appears in admin dashboard
 
-<p align="center">
-  <strong>HonestlyMargoRetail™</strong> | Powered by <a href="https://github.com/davidmcgilltech">davidmcgilltech</a><br>
-  <em>McGill Technologies OKC</em>
-</p>
+## Contributing
+
+See [TODO.md](./TODO.md) for planned work.
