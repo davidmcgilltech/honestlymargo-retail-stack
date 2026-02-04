@@ -1,17 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-interface Product {
-  id: string
-  name: string
-  slug: string
-  description: string | null
-  price: number
-  image_url: string | null
-  category: string
-  tags: string[] | null
-}
+import { Product } from '../../lib/supabase'
 
 export default function ProductCard({ product }: { product: Product }) {
   const [loading, setLoading] = useState(false)
