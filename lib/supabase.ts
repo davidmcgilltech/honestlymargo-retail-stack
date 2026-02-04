@@ -1,10 +1,25 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
 export function createClient() {
-  return createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  
+  if (!url || !key) {
+    // Return a mock client for build time
+    return {
+      from: () => ({
+        select: () => ({
+          eq: () => ({
+            order: () => ({
+              limit: () => Promise.resolve({ data: [], error: null })
+            })
+          })
+        })
+      })
+    } as any
+  }
+  
+  return createSupabaseClient(url, key)
 }
 
 export type Product = {
