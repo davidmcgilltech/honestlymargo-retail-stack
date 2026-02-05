@@ -20,10 +20,11 @@ export default function ProductDetailClient({
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+  const [imageError, setImageError] = useState(false)
 
   // Mock multiple images - in production, product would have an images array
-  const images = product.image_url 
-    ? [product.image_url, product.image_url, product.image_url] 
+  const images = (product.image_url && !imageError)
+    ? [product.image_url] 
     : []
 
   const averageRating = mockReviews.reduce((acc, r) => acc + r.rating, 0) / mockReviews.length
@@ -68,6 +69,7 @@ export default function ProductDetailClient({
               <img 
                 src={images[selectedImage]} 
                 alt={product.name}
+                onError={() => setImageError(true)}
                 className="w-full h-full object-cover"
               />
             ) : (
