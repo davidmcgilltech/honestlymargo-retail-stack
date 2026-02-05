@@ -24,8 +24,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-white font-sans">
         {/* Free Shipping Banner */}
-        <div className="bg-margo-teal text-white text-center py-2 text-sm tracking-wide">
-          FREE SHIPPING FOR ORDERS OVER $99
+        <div className="bg-margo-coral/90 text-white text-center py-2 text-sm">
+          Free shipping for orders over <span className="font-semibold">$99</span>
         </div>
 
         <header className="bg-margo-cream border-b border-margo-cream-dark">
