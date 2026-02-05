@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import NewsletterPopup from './components/NewsletterPopup'
 
 export const metadata: Metadata = {
   title: 'HonestlyMargoRetail™ | Natural Beauty Products',
@@ -70,6 +71,8 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        
+        <NewsletterPopup />
       </body>
     </html>
   )
