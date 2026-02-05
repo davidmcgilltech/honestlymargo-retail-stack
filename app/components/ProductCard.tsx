@@ -41,9 +41,9 @@ export default function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <div className="product-card group">
+    <div className="group">
       <a href={`/products/${product.slug}`}>
-        <div className="aspect-square bg-rose-50 rounded-lg overflow-hidden mb-4">
+        <div className="aspect-square bg-margo-cream rounded-lg overflow-hidden mb-4">
           {product.image_url ? (
             <img 
               src={product.image_url} 
@@ -51,22 +51,22 @@ export default function ProductCard({ product }: { product: Product }) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-rose-400">
+            <div className="w-full h-full flex items-center justify-center text-margo-coral/40">
               <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
           )}
         </div>
-        <h3 className="font-medium text-gray-900 group-hover:text-rose-900 transition-colors">
+        <h3 className="font-medium text-margo-charcoal group-hover:text-margo-coral transition-colors">
           {product.name}
         </h3>
-        <p className="text-rose-900 font-medium mt-1">
+        <p className="text-margo-coral font-medium mt-1">
           ${product.price.toFixed(2)}
         </p>
         <div className="flex gap-1 flex-wrap mt-2">
           {product.tags?.includes('best-seller') && (
-            <span className="text-xs bg-rose-100 text-rose-800 px-2 py-1 rounded-full">
+            <span className="text-xs bg-margo-coral/10 text-margo-coral px-2 py-1 rounded-full">
               Best Seller
             </span>
           )}
@@ -80,9 +80,9 @@ export default function ProductCard({ product }: { product: Product }) {
       <button
         onClick={handleBuyNow}
         disabled={loading}
-        className="w-full mt-4 bg-rose-900 text-white py-2 px-4 rounded-lg hover:bg-rose-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full mt-4 bg-margo-coral text-white py-2 px-4 rounded-md hover:bg-margo-coral-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium tracking-wide"
       >
-        {loading ? 'Loading...' : 'Buy Now'}
+        {loading ? 'Loading...' : 'BUY NOW'}
       </button>
     </div>
   )

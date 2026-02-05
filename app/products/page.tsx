@@ -28,31 +28,31 @@ export default async function ProductsPage({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <h1 className="text-3xl font-serif text-gray-900">
+        <h1 className="text-3xl font-serif text-margo-charcoal">
           {params.category || 'All Products'}
         </h1>
         <div className="flex gap-2 flex-wrap">
-          <a href="/products" className="px-3 py-1 rounded-full text-sm border hover:bg-rose-50">
+          <a href="/products" className="px-4 py-2 rounded-full text-sm border border-margo-cream-dark hover:bg-margo-cream hover:border-margo-coral text-margo-charcoal transition-colors">
             All
           </a>
-          <a href="/products?category=Lip Care" className="px-3 py-1 rounded-full text-sm border hover:bg-rose-50">
+          <a href="/products?category=Lip Care" className="px-4 py-2 rounded-full text-sm border border-margo-cream-dark hover:bg-margo-cream hover:border-margo-coral text-margo-charcoal transition-colors">
             Lip Care
           </a>
-          <a href="/products?category=Body Care" className="px-3 py-1 rounded-full text-sm border hover:bg-rose-50">
+          <a href="/products?category=Body Care" className="px-4 py-2 rounded-full text-sm border border-margo-cream-dark hover:bg-margo-cream hover:border-margo-coral text-margo-charcoal transition-colors">
             Body Care
           </a>
-          <a href="/products?category=Aromatherapy" className="px-3 py-1 rounded-full text-sm border hover:bg-rose-50">
+          <a href="/products?category=Aromatherapy" className="px-4 py-2 rounded-full text-sm border border-margo-cream-dark hover:bg-margo-cream hover:border-margo-coral text-margo-charcoal transition-colors">
             Aromatherapy
           </a>
         </div>
       </div>
 
-      <p className="text-sm text-gray-600 mb-6">
+      <p className="text-sm text-margo-charcoal/60 mb-6">
         Free shipping on orders $99+ • Test mode: use card 4242 4242 4242 4242
       </p>
 
       {products.length === 0 ? (
-        <p className="text-gray-600 text-center py-12">No products found.</p>
+        <p className="text-margo-charcoal/60 text-center py-12">No products found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product: Product) => (

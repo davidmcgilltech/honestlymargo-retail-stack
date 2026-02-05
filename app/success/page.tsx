@@ -7,24 +7,24 @@ export default function SuccessPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h1 className="text-3xl font-serif text-gray-900 mb-2">Thank You!</h1>
-        <p className="text-gray-600">Your order has been placed successfully.</p>
+        <h1 className="text-3xl font-serif text-margo-charcoal mb-2">Thank You!</h1>
+        <p className="text-margo-charcoal/70">Your order has been placed successfully.</p>
       </div>
       
-      <div className="bg-rose-50 rounded-lg p-6 mb-8">
-        <p className="text-sm text-gray-600 mb-2">
+      <div className="bg-margo-cream rounded-lg p-6 mb-8">
+        <p className="text-sm text-margo-charcoal/70 mb-2">
           You'll receive a confirmation email shortly with your order details.
         </p>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-margo-charcoal/60">
           (This is a test order - no real charges were made)
         </p>
       </div>
 
       <a 
         href="/products" 
-        className="inline-block bg-rose-900 text-white px-6 py-3 rounded-lg hover:bg-rose-800 transition-colors"
+        className="inline-block bg-margo-coral text-white px-6 py-3 rounded-md hover:bg-margo-coral-dark transition-colors font-medium tracking-wide"
       >
-        Continue Shopping
+        CONTINUE SHOPPING
       </a>
     </div>
   )

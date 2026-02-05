@@ -8,6 +8,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Honestly Margo brand colors
+        margo: {
+          coral: '#E8998D',
+          'coral-dark': '#E07A6C',
+          cream: '#FDF8F3',
+          'cream-dark': '#F5EDE6',
+          navy: '#2D3E50',
+          charcoal: '#2D3748',
+          teal: '#5B8A8A',
+        },
+        // Keep rose for backwards compatibility
         rose: {
           50: '#fff1f2',
           100: '#ffe4e6',
@@ -22,7 +33,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        serif: ['Georgia', 'Cambria', 'serif'],
+        serif: ['Cormorant Garamond', 'Georgia', 'Cambria', 'serif'],
+        sans: ['Montserrat', 'system-ui', 'sans-serif'],
       },
     },
   },
